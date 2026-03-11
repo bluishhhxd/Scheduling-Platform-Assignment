@@ -9,9 +9,15 @@ export async function apiRequest(path, options = {}) {
     ...options
   });
 
+  const contentType = response.headers.get("content-type") || "";
+  const responseBody = contentType.includes("application/json") ? await response.json() : null;
+
   if (!response.ok) {
-    throw new Error(`API request failed: ${response.status}`);
+    const error = new Error(responseBody?.message || `API request failed: ${response.status}`);
+    error.status = response.status;
+    error.body = responseBody;
+    throw error;
   }
 
-  return response.json();
+  return responseBody;
 }

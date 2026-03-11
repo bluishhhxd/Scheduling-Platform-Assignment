@@ -27,7 +27,8 @@ export default function Sidebar() {
             <Link
               key={item.href}
               href={item.href}
-              className={lock rounded-2xl px-4 py-3 text-sm transition }
+              className="block rounded-2xl px-4 py-3 text-sm transition"
+              aria-current={active ? "page" : undefined}
             >
               {item.label}
             </Link>

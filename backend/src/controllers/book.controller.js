@@ -18,19 +18,37 @@ function isValidEmail(value) {
   return typeof value === "string" && /^\S+@\S+\.\S+$/.test(value);
 }
 
+function parseStartTime(startTime) {
+  if (typeof startTime !== "string") {
+    return null;
+  }
+
+  const match = startTime.match(/^(\d{4}-\d{2}-\d{2})T(\d{2}:\d{2})/);
+
+  if (!match) {
+    return null;
+  }
+
+  return {
+    date: match[1],
+    time: match[2]
+  };
+}
+
 export async function bookMeeting(req, res, next) {
   try {
-    const {
-      event_slug,
-      date,
-      time,
-      attendee_name,
-      attendee_email,
-      attendee_notes
-    } = req.body || {};
+    const body = req.body || {};
+    const parsedStartTime = parseStartTime(body.startTime);
+
+    const event_slug = body.event_slug || body.eventSlug;
+    const date = body.date || parsedStartTime?.date;
+    const time = body.time || parsedStartTime?.time;
+    const attendee_name = body.attendee_name || body.attendeeName;
+    const attendee_email = body.attendee_email || body.attendeeEmail;
+    const attendee_notes = body.attendee_notes || body.attendeeNotes;
 
     if (!event_slug || !attendee_name || !attendee_email) {
-      throw createError("event_slug, attendee_name, and attendee_email are required");
+      throw createError("eventSlug, attendeeName, and attendeeEmail are required");
     }
 
     if (!isValidDate(date)) {
@@ -42,7 +60,7 @@ export async function bookMeeting(req, res, next) {
     }
 
     if (!isValidEmail(attendee_email)) {
-      throw createError("attendee_email must be a valid email address");
+      throw createError("attendeeEmail must be a valid email address");
     }
 
     const booking = await bookService.bookMeeting({

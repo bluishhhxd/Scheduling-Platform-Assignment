@@ -10,3 +10,16 @@ export function createMeeting(payload) {
     body: JSON.stringify(payload)
   });
 }
+
+export function bookMeeting(payload) {
+  return apiRequest("/book", {
+    method: "POST",
+    body: JSON.stringify(payload)
+  });
+}
+
+export function cancelMeeting(id) {
+  return apiRequest(`/meetings/${id}`, {
+    method: "DELETE"
+  });
+}
