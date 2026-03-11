@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { createMeeting, getMeetings } from "../controllers/meetings.controller.js";
+import { cancelMeeting, getMeetings } from "../controllers/meetings.controller.js";
 
 const router = Router();
 
 router.get("/", getMeetings);
-router.post("/", createMeeting);
+router.delete("/:id", cancelMeeting);
 
 export default router;

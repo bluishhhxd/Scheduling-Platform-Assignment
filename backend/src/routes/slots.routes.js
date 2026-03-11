@@ -3,6 +3,6 @@ import { getAvailableSlots } from "../controllers/slots.controller.js";
 
 const router = Router();
 
-router.get("/", getAvailableSlots);
+router.get("/:eventSlug", getAvailableSlots);
 
 export default router;
