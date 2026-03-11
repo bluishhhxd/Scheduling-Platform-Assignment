@@ -1,6 +1,6 @@
 # Scheduling Platform Assignment
 
-A clean starter scaffold for a Calendly-style scheduling platform with a separated rontend, ackend, and database structure.
+A clean starter scaffold for a Calendly-style scheduling platform with a separated frontend, backend, and database structure.
 
 ## Stack
 
