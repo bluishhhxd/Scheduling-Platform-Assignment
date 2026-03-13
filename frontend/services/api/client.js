@@ -1,7 +1,13 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:4000/api";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL;
+
+if (!API_BASE) {
+  throw new Error("NEXT_PUBLIC_API_URL is not configured");
+}
+
+const NORMALIZED_API_BASE = API_BASE.replace(/\/$/, "");
 
 export async function apiRequest(path, options = {}) {
-  const response = await fetch(`${API_BASE_URL}${path}`, {
+  const response = await fetch(`${NORMALIZED_API_BASE}${path}`, {
     headers: {
       "Content-Type": "application/json",
       ...(options.headers || {})

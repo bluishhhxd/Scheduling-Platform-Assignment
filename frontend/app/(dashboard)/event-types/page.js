@@ -22,7 +22,7 @@ export default function EventTypesPage() {
   const [deletingId, setDeletingId] = useState(null);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
-  const [publicBaseUrl, setPublicBaseUrl] = useState("http://localhost:3000");
+  const [publicBaseUrl, setPublicBaseUrl] = useState("");
 
   useEffect(() => {
     setPublicBaseUrl(window.location.origin);
